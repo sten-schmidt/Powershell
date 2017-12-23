@@ -1,2 +1,2 @@
-# Powershell-Examples
-Miscellaneous PowerShell examples
+# Powershell
+Miscellaneous PowerShell Scripts
