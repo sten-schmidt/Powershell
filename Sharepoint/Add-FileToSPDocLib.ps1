@@ -13,8 +13,11 @@ function Add-FileToSPDocLib([String]$spWebUrl, [String]$docLibName, [String]$fil
     [IO.FileSystemInfo]$file = Get-ChildItem $filePath
     [String]$fileName = $file.Name
 
-    $spFileCollection.Add($docLibName + "/" + $fileName, $file.OpenRead(), $override)  | Out-Null
+    [IO.FileStream]$fs = $file.OpenRead()
 
+    $spFileCollection.Add($docLibName + "/" + $fileName, $fs, $override)  | Out-Null
+
+    $fs.Dispose()
     $file = $null
     $spFileCollection = $null
     $spFolder = $null
