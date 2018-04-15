@@ -21,12 +21,13 @@ try
         [Microsoft.SharePoint.SPFolder]$spFolder = $spWeb.GetFolder($docLibName) 
         [Microsoft.SharePoint.SPFileCollection]$spFileCollection = $spFolder.Files
     
-        [IO.FileSystemInfo]$file = Get-ChildItem $filePath
+        [IO.FileInfo]$file = Get-ChildItem $filePath
         [String]$fileName = $file.Name
 
         [IO.FileStream]$fs = $file.OpenRead()
 
         $spFileCollection.Add($docLibName + "/" + $fileName, $fs, $override)  | Out-Null
+        $fs.Close()
 
         $fs.Dispose()
         $file = $null
